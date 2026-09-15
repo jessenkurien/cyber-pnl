@@ -15,7 +15,7 @@ confidentiality, methodology claims, or public positioning.
       financial, actuarial, legal, insurance, or investment advice.
 - [x] Simulation limits, unsupported inputs, malformed evidence, and stale attestations fail safely.
 - [x] License, citation, notice, security policy, contribution guidance, and changelog are present.
-- [ ] Employment, invention-assignment, open-source, confidentiality, and trademark obligations were
+- [x] Employment, invention-assignment, open-source, confidentiality, and trademark obligations were
       reviewed by the author; specialist legal review was obtained where needed.
 
 ## GitHub controls
@@ -23,18 +23,18 @@ confidentiality, methodology claims, or public positioning.
 - [x] Private vulnerability reporting and Dependabot alerts are enabled.
 - [x] `main` is protected against deletion and force pushes; required CI checks block merging.
 - [x] `docs/social-preview.png` is configured as the repository social preview.
-- [ ] The release tag identifies the exact reviewed commit and published files include checksums.
+- [x] The release tag identifies the exact reviewed commit and published files include checksums.
 
 ## Author approval
 
-Release decision: **PENDING**
+Release decision: **APPROVED**
 
 Approved version: `0.1.0`
 
-Approved commit/tag: `________________________________________`
+Approved commit/tag: `v0.1.0`
 
 Approved by: `Jessen Kurien`
 
-Approval date: `________________________________________`
+Approval date: `2026-09-14`
 
 Notes: `________________________________________________________________________________`
