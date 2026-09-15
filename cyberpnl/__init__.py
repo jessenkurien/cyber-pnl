@@ -7,7 +7,7 @@ Outputs are estimates for decision support. They are not financial, actuarial, l
 or investment advice, and materiality determinations remain management's responsibility.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 DISCLAIMER = (
     "Estimates for decision support only. Not financial, actuarial, legal, insurance, or investment "
     "advice. Ranges reflect calibrated judgment and cited sources; actual losses may fall outside them. "

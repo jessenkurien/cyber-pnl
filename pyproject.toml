@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cyber-pnl"
-version = "0.1.0"
+version = "0.1.1"
 description = "Auditable cyber-risk decision support in financial terms: Monte Carlo loss scenarios, counterfactual control value, investment ranking, and governed assumptions."
 readme = "README.md"
 license = "MIT"

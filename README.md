@@ -11,7 +11,7 @@ Created and maintained by **[Jessen Kurien](https://github.com/jessenkurien)**.
 
 > **Important:** The included company, measurements, costs, appetite, and results are fictional. They demonstrate the workflow; they are not benchmark findings or a forecast. Cyber P&L is not an accounting or GAAP profit-and-loss statement and is not financial, actuarial, legal, insurance, or investment advice.
 
-> **Project status:** v0.1.0 public release candidate. The software and fictional demonstration are ready for evaluation. A real organization's model is not ready for executive use until its own evidence, accountable owners, model review, and required attestations pass `cyberpnl validate --operational`.
+> **Project status:** v0.1.1 public release. The software and fictional demonstration are ready for evaluation. A real organization's model is not ready for executive use until its own evidence, accountable owners, model review, and required attestations pass `cyberpnl validate --operational`.
 
 ```text
 $ cyberpnl statement
@@ -159,7 +159,7 @@ See [methodology](docs/methodology.md), [model risk](docs/model-risk.md),
 ## Public references
 
 - [Cyentia Institute, Information Risk Insights Study 2025](https://www.cyentia.com/iris/)
-- [IBM X-Force, 2025 Cost of a Data Breach: AI Risks, Shadow AI, and Solutions](https://www.ibm.com/think/x-force/2025-cost-of-a-data-breach-navigating-ai)
+- [IBM, *2025 Cost of a Data Breach Report: Navigating the AI rush without sidelining security*](https://www.ibm.com/think/x-force/2025-cost-of-a-data-breach-navigating-ai)
 - [FBI, 2025 IC3 Annual Report](https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf)
 - [Coveware, Q2 2026 ransomware report](https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/)
 
