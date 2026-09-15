@@ -6,8 +6,8 @@ confidentiality, methodology claims, or public positioning.
 ## Required evidence
 
 - [x] The public model is fictional and every sample source or estimate is visibly marked `[TEMPLATE]`.
-- [ ] No employer, client, tenant, customer, incident, or nonpublic benchmark data is present.
-- [ ] Every external reference was opened and checked for the intended edition and claim.
+- [x] No employer, client, tenant, customer, incident, or nonpublic benchmark data is present.
+- [x] Every external reference was opened and checked for the intended edition and claim.
 - [x] `model/` and `cyberpnl/default_model/` are byte-for-byte identical.
 - [x] Formatting, lint, tests, coverage, model validation, wheel build, and clean-install smoke test pass.
 - [x] Generated HTML, Markdown, JSON, screenshot, and social preview were visually inspected.
@@ -20,9 +20,9 @@ confidentiality, methodology claims, or public positioning.
 
 ## GitHub controls
 
-- [ ] Private vulnerability reporting and Dependabot alerts are enabled.
-- [ ] `main` is protected against deletion and force pushes; required CI checks block merging.
-- [ ] `docs/social-preview.png` is configured as the repository social preview.
+- [x] Private vulnerability reporting and Dependabot alerts are enabled.
+- [x] `main` is protected against deletion and force pushes; required CI checks block merging.
+- [x] `docs/social-preview.png` is configured as the repository social preview.
 - [ ] The release tag identifies the exact reviewed commit and published files include checksums.
 
 ## Author approval
