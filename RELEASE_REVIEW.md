@@ -1,4 +1,4 @@
-# Release Review — Cyber P&L v0.1.0
+# Release Review — Cyber P&L v0.1.1
 
 This file records the human decision to publish. Automated checks cannot approve legal rights,
 confidentiality, methodology claims, or public positioning.
@@ -29,12 +29,12 @@ confidentiality, methodology claims, or public positioning.
 
 Release decision: **APPROVED**
 
-Approved version: `0.1.0`
+Approved version: `0.1.1`
 
-Approved commit/tag: `v0.1.0`
+Approved commit/tag: `v0.1.1`
 
 Approved by: `Jessen Kurien`
 
-Approval date: `2026-09-14`
+Approval date: `2026-09-15`
 
-Notes: `________________________________________________________________________________`
+Notes: Patch release correcting the IBM citation and outdated release-candidate wording.

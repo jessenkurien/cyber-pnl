@@ -7,6 +7,13 @@ All notable changes to Cyber P&L will be documented here. The project follows
 
 No changes yet.
 
+## [0.1.1] — 2026-09-15
+
+### Fixed
+
+- Replaced the paraphrased IBM citation title with the exact title of the linked IBM analysis.
+- Updated the README project status to reflect the public release rather than a release candidate.
+
 ## [0.1.0] — 2026-09-14
 
 - Ten fictional, calibrated cyber-loss scenarios for an illustrative SaaS company.

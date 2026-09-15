@@ -4,7 +4,8 @@ message: >-
   training program, presentation, or research paper, please cite it using this metadata.
 title: Cyber P&L
 type: software
-version: 0.1.0
+version: 0.1.1
+date-released: 2026-09-15
 authors:
   - family-names: Kurien
     given-names: Jessen
