@@ -1,0 +1,10 @@
+{
+  "wormprint_version": "0.1.0",
+  "hostname": "fleet-median",
+  "exposure_score": 34.0,
+  "exposure_grade": "B",
+  "summary": {
+    "credentials_total": 6,
+    "credentials_live": 3
+  }
+}

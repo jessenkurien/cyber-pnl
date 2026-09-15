@@ -1,0 +1,10 @@
+include CHANGELOG.md
+include CITATION.cff
+include CONTRIBUTING.md
+include LICENSE
+include NOTICE
+include RELEASE_REVIEW.md
+include SECURITY.md
+recursive-include docs *.html *.md *.png *.svg
+recursive-include examples *
+recursive-include model *.yaml

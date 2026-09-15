@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: >-
+  If you use or adapt Cyber P&L in a publication, product, client engagement,
+  training program, presentation, or research paper, please cite it using this metadata.
+title: Cyber P&L
+type: software
+version: 0.1.0
+authors:
+  - family-names: Kurien
+    given-names: Jessen
+repository-code: https://github.com/jessenkurien/cyber-pnl
+url: https://github.com/jessenkurien/cyber-pnl
+license: MIT
+abstract: >-
+  Open-source cyber risk quantification for CISO-CFO decisions, with transparent
+  loss scenarios, Monte Carlo simulation, control valuation, security investment
+  ranking, governed assumptions, and board-facing risk reporting.
+keywords:
+  - cyber risk quantification
+  - quantitative risk analysis
+  - Monte Carlo simulation
+  - cybersecurity ROI
+  - security economics
+  - control effectiveness
+  - CISO-CFO alignment
+  - board risk reporting

@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyber-pnl"
+version = "0.1.0"
+description = "Auditable cyber-risk decision support in financial terms: Monte Carlo loss scenarios, counterfactual control value, investment ranking, and governed assumptions."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Jessen Kurien" }]
+keywords = [
+  "cyber-risk",
+  "cyber-risk-quantification",
+  "quantitative-risk-analysis",
+  "fair-risk-analysis",
+  "monte-carlo",
+  "cybersecurity-roi",
+  "security-economics",
+  "security-investment",
+  "control-effectiveness",
+  "risk-appetite",
+  "ciso",
+  "cfo",
+  "board-reporting",
+  "grc",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Information Technology",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Office/Business :: Financial",
+]
+dependencies = [
+  "click>=8.1",
+  "pyyaml>=6.0",
+  "pydantic>=2.5",
+  "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = ["build>=1.2", "pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.5"]
+
+[project.urls]
+Homepage = "https://github.com/jessenkurien/cyber-pnl"
+Repository = "https://github.com/jessenkurien/cyber-pnl"
+Issues = "https://github.com/jessenkurien/cyber-pnl/issues"
+
+[project.scripts]
+cyberpnl = "cyberpnl.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["cyberpnl*"]
+
+[tool.setuptools.package-data]
+cyberpnl = ["default_model/*.yaml"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E702"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

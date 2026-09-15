@@ -1,0 +1,15 @@
+# Illustrative appetite only. Replace with approved limits before operational use.
+statement: >
+  The Board accepts cyber loss up to 5% of annual revenue in a 1-in-20 year and expects
+  management to keep the expected annual loss below 1.5% of revenue. Breaches of either are
+  reported to the Audit & Risk Committee at the next meeting with a treatment plan.
+approved_by: []
+limits:
+  - metric: p95
+    max_pct_revenue: 0.05
+    owner: "Board Audit & Risk Committee (template role)"
+    source: illustrative-board-appetite
+  - metric: eal
+    max_pct_revenue: 0.015
+    owner: "Board Audit & Risk Committee (template role)"
+    source: illustrative-board-appetite

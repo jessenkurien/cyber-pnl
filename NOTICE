@@ -1,0 +1,14 @@
+Cyber P&L
+Copyright (c) 2026 Jessen Kurien. Licensed under the MIT License (see LICENSE).
+
+The approach belongs to the same family as the Open FAIR(TM) standard. Open FAIR is a trademark of
+The Open Group. This project is not affiliated with, certified by, or endorsed by The Open Group,
+and reproduces none of its materials. The method implemented here (loss-event frequency x loss
+magnitude, Monte Carlo simulation, loss exceedance curves) is general risk analysis.
+
+Public benchmarks are cited as calibration context; no report content is reproduced. Sample inputs
+remain illustrative unless a source record and organization-specific calibration establish otherwise.
+The equivalent-bet calibration technique is described in Douglas Hubbard's work on measurement.
+
+Outputs of this software are estimates for decision support and are not financial, actuarial,
+legal, insurance, or investment advice.

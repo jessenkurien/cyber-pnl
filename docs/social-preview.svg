@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title description">
+  <title id="title">Cyber P&amp;L social preview</title>
+  <desc id="description">Open-source cyber risk quantification for CISO and CFO decisions, created by Jessen Kurien.</desc>
+  <rect width="1280" height="640" fill="#0b0b0b"/>
+  <rect x="64" y="64" width="12" height="512" rx="6" fill="#2a78d6"/>
+  <rect x="92" y="64" width="5" height="512" rx="2.5" fill="#eb6834"/>
+  <circle cx="1148" cy="116" r="48" fill="none" stroke="#2a78d6" stroke-width="10"/>
+  <path d="M1119 116h58M1148 87v58" stroke="#eb6834" stroke-width="8" stroke-linecap="round"/>
+  <text x="140" y="188" fill="#fcfcfb" font-family="Segoe UI, Arial, sans-serif" font-size="88" font-weight="750" letter-spacing="-3">Cyber P&amp;L</text>
+  <text x="144" y="254" fill="#c9c9c5" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="500">OPEN-SOURCE CYBER RISK QUANTIFICATION</text>
+  <line x1="144" y1="310" x2="1136" y2="310" stroke="#353533" stroke-width="2"/>
+  <text x="144" y="382" fill="#fcfcfb" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650">RISK</text>
+  <text x="256" y="382" fill="#2a78d6" font-family="Segoe UI, Arial, sans-serif" font-size="32">→</text>
+  <text x="320" y="382" fill="#fcfcfb" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650">CONTROLS</text>
+  <text x="506" y="382" fill="#2a78d6" font-family="Segoe UI, Arial, sans-serif" font-size="32">→</text>
+  <text x="570" y="382" fill="#fcfcfb" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650">FINANCIAL IMPACT</text>
+  <text x="880" y="382" fill="#eb6834" font-family="Segoe UI, Arial, sans-serif" font-size="32">→</text>
+  <text x="944" y="382" fill="#fcfcfb" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650">DECISIONS</text>
+  <text x="144" y="468" fill="#c9c9c5" font-family="Segoe UI, Arial, sans-serif" font-size="28">Monte Carlo loss modeling · control valuation · security investment analysis</text>
+  <text x="144" y="538" fill="#fcfcfb" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="600">Created by Jessen Kurien</text>
+  <text x="1136" y="538" text-anchor="end" fill="#898781" font-family="Segoe UI, Arial, sans-serif" font-size="23">github.com/jessenkurien/cyber-pnl</text>
+</svg>

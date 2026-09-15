@@ -1,0 +1,21 @@
+# Business profile — owned by Finance. If the CFO can't defend a number here, it doesn't go in.
+organization: "Example SaaS Inc. (template — replace)"
+template: true
+owner: "Finance (template role)"
+source: business-profile-template
+fiscal_year: 2026
+annual_revenue: 180000000        # all monetary inputs use the currency declared below
+ebitda: 27000000
+employees: 900
+currency: USD
+security_spend_annual: 5400000   # 3% of revenue: people, tools, services (for the P&L ratio)
+regimes: [GDPR, CCPA, "SOC 2", "PCI DSS (SAQ-A)"]
+
+# Revenue per hour by service — from the business-continuity impact analysis. Total ≈ 20.5k/hour.
+services:
+  - {id: platform,        name: "Production SaaS platform",  revenue_per_hour: 15000, criticality: crown_jewel, owner: "VP Product", source: business-impact-analysis-template}
+  - {id: payments,        name: "Billing & payments",        revenue_per_hour: 3500,  criticality: crown_jewel, owner: "VP Payments", source: business-impact-analysis-template}
+  - {id: customer-portal, name: "Customer portal & support", revenue_per_hour: 1500,  criticality: high,        owner: "VP Customer Success", source: business-impact-analysis-template}
+  - {id: erp,             name: "ERP / finance systems",     revenue_per_hour: 500,   criticality: crown_jewel, owner: "CFO", source: business-impact-analysis-template}
+  - {id: corp-it,         name: "Corporate IT & email",      revenue_per_hour: 250,   criticality: standard,    owner: "IT Director", source: business-impact-analysis-template}
+  - {id: engineering,     name: "Engineering & CI/CD",       revenue_per_hour: 0,     criticality: high,        owner: "VP Engineering", source: business-impact-analysis-template}

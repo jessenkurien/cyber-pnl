@@ -1,0 +1,55 @@
+# Source catalog for the illustrative model. Public benchmarks provide calibration context;
+# they do not, by themselves, substantiate Example SaaS Inc.'s scenario-specific ranges.
+sources:
+  iris2025: >
+    [TEMPLATE] Cyentia Institute, Information Risk Insights Study 2025,
+    https://www.cyentia.com/iris/. Public calibration context; the sample range is illustrative.
+  unit42-girr-2026: >
+    [TEMPLATE] Replace with a verified Unit 42 report edition and the exact table or figure used.
+    The sample ransom-demand and payment ranges are illustrative.
+  coveware-q2-2026: >
+    [TEMPLATE] Coveware, Q2 2026 ransomware report,
+    https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/.
+    Public calibration context; the sample ranges are illustrative.
+  ibm-codb-2025: >
+    [TEMPLATE] IBM X-Force, 2025 Cost of a Data Breach: AI Risks, Shadow AI, and Solutions,
+    https://www.ibm.com/think/x-force/2025-cost-of-a-data-breach-navigating-ai. This official IBM
+    summary of the 2025 report is public calibration context only; the per-record sample ranges
+    require organization-specific calibration.
+  fbi-ic3-2025: >
+    [TEMPLATE] FBI Internet Crime Complaint Center, 2025 IC3 Annual Report,
+    https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf. Aggregate BEC losses provide
+    context; the sample event distribution and recovery offset are illustrative.
+  shai-hulud-2026: >
+    [TEMPLATE] Replace with dated primary incident analyses and an internal exposure assessment.
+  gdpr-enforcement-tracker: >
+    [TEMPLATE] Replace with the exact public enforcement decisions reviewed by Legal.
+  class-action-comparables: >
+    [TEMPLATE] Replace with the exact comparable settlements and Legal's applicability analysis.
+  mfa-effectiveness-studies: >
+    [TEMPLATE] Replace with primary studies and internal authentication telemetry supporting the
+    selected multiplier.
+  ir-retainer-rate-card: "[TEMPLATE] Replace with the current IR rate card and engagement invoices."
+  data-inventory: "[TEMPLATE] Replace with the current privacy data inventory and record counts."
+  contracts: "[TEMPLATE] Replace with Legal's review of current SLA, credit and liability terms."
+  cloud-billing-history: "[TEMPLATE] Replace with 24 months of organization cloud-billing anomalies."
+  vendor-incident-history: "[TEMPLATE] Replace with 24 months of vendor incident records."
+  change-incident-history: "[TEMPLATE] Replace with 24 months of change-related incident records."
+  ddos-provider-reports: "[TEMPLATE] Replace with 12 months of current provider telemetry."
+  restore-drill-2026-06: "[TEMPLATE] Synthetic restore-drill result for the public demonstration."
+  72md-rehearsal: "[TEMPLATE] Synthetic 72-Minute Defense rehearsal result for the public demonstration."
+  wormprint-report: "[TEMPLATE] Synthetic wormprint report result for the public demonstration."
+  workshop-2026-09: "[TEMPLATE] Illustrative equivalent-bet workshop estimates; no workshop occurred."
+  business-profile-template: "[TEMPLATE] Fictional company financial profile for demonstration."
+  business-impact-analysis-template: "[TEMPLATE] Fictional revenue-per-hour estimates for demonstration."
+  security-budget-template: "[TEMPLATE] Fictional control costs for demonstration."
+  illustrative-board-appetite: "[TEMPLATE] Illustrative limits; not approved by a real board."
+  model-risk-policy: >
+    [TEMPLATE] Model-risk guard documented in docs/model-risk.md; replace or approve through the organization's
+    model governance process before operational use.
+  manual-kpi-entry: "[TEMPLATE] Manual estimate; replace with a traceable measurement source."
+
+model_settings:
+  min_multiplier: 0.05
+  min_multiplier_source: model-risk-policy
+  min_multiplier_owner: "Model Risk Owner (template role)"

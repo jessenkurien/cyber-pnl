@@ -1,0 +1,194 @@
+# Controls — existing ones (valued by counterfactual) and proposed investments (ranked by return).
+#
+# An effect targets scenarios by id, by #tag, or '*', and reduces frequency and/or magnitude.
+# Static multipliers are ranges (uncertain effectiveness, like everything else). KPI-driven
+# effects derive the multiplier from a KPI record via a named curve (cyberpnl/kpis.py). The public
+# sample uses synthetic_template KPIs; operational models require measured evidence.
+
+controls:
+
+  # ==================== EXISTING ====================
+  - id: mfa-workforce
+    name: "MFA on workforce identities (app-based, ~85% coverage)"
+    status: existing
+    annual_cost: 90000
+    owner: "IT Director"
+    source: mfa-effectiveness-studies
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["#credential"]
+        frequency_multiplier: {min: 0.4, mode: 0.55, max: 0.75, source: mfa-effectiveness-studies, owner: "CISO"}
+    notes: "App-based push; phishable. See proposed phishing-resistant upgrade."
+
+  - id: edr-fleet
+    name: "EDR on endpoints and servers"
+    status: existing
+    annual_cost: 420000
+    owner: "SOC Manager"
+    source: workshop-2026-09
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["#ransomware", "#exfil"]
+        frequency_multiplier: {min: 0.55, mode: 0.75, max: 0.9, source: workshop-2026-09, owner: "SOC Manager"}
+
+  - id: containment-72md
+    name: "Pre-authorized containment (The 72-Minute Defense)"
+    status: existing
+    annual_cost: 60000
+    owner: "IR Lead"
+    source: 72md-rehearsal
+    cost_source: security-budget-template
+    depends_on: [edr-fleet]      # no telemetry, no precursor score, no containment: EDR's value includes this
+    effects:
+      # Magnitude of exfil-driven components scales with P(exfil before containment),
+      # derived from the measured worst-case time-to-contain in 72md rehearsals.
+      - scenarios: ["#exfil"]
+        component_tags: [data]
+        kpi: {curve: contain_before_exfil, key: time_to_contain_minutes, default: 120, applies: magnitude,
+              params: {clock_minutes: 72, width_minutes: 12, residual: 0.15}}
+      # Impact-driven components (downtime, ransom, rebuild) scale with P(encryption before containment).
+      - scenarios: ["#ransomware"]
+        component_tags: [impact]
+        kpi: {curve: contain_before_encrypt, key: time_to_contain_minutes, default: 120, applies: magnitude,
+              params: {clock_minutes: 95, width_minutes: 15, residual: 0.25}}
+
+  - id: credential-hygiene
+    name: "Developer credential hygiene program (wormprint audits)"
+    status: existing
+    annual_cost: 25000
+    owner: "CISO"
+    source: wormprint-report
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["#credential"]
+        kpi: {curve: credential_exposure_grade, key: credential_exposure_score, default: 70, applies: frequency}
+
+  - id: backups-immutable
+    name: "Immutable backups with quarterly restore drills"
+    status: existing
+    annual_cost: 140000
+    owner: "IT Director"
+    source: restore-drill-2026-06
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["ransomware-platform"]
+        component_tags: [downtime]
+        kpi: {curve: restore_hours_ratio, key: proven_restore_hours, default: 72, applies: magnitude,
+              params: {baseline_hours: 72, floor: 0.15}}
+      - scenarios: ["ransomware-platform"]
+        magnitude_multiplier: {min: 0.3, mode: 0.5, max: 0.8, source: coveware-q2-2026, owner: "CISO"}
+        component_tags: [ransom]
+    notes: "Second effect: with working backups the ransom is paid far less often (Coveware: payment rates fall when restores succeed)."
+
+  - id: vendor-tiering
+    name: "Vendor risk tiering and contractual SLAs"
+    status: existing
+    annual_cost: 80000
+    owner: "Vendor Risk Lead"
+    source: workshop-2026-09
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["#third-party"]
+        magnitude_multiplier: {min: 0.6, mode: 0.8, max: 0.95, source: workshop-2026-09, owner: "Vendor Risk Lead"}
+
+  - id: ddos-protection
+    name: "Managed DDoS protection"
+    status: existing
+    annual_cost: 60000
+    owner: "Head of Platform"
+    source: ddos-provider-reports
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["#ddos"]
+        magnitude_multiplier: {min: 0.1, mode: 0.2, max: 0.4, source: ddos-provider-reports, owner: "Head of Platform"}
+
+  - id: change-control
+    name: "Change control and drift detection"
+    status: existing
+    annual_cost: 50000
+    owner: "Head of Platform"
+    source: change-incident-history
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["platform-outage-misconfig"]
+        frequency_multiplier: {min: 0.4, mode: 0.6, max: 0.8, source: change-incident-history, owner: "Head of Platform"}
+
+  # ==================== PROPOSED (ranked by cyberpnl invest) ====================
+  - id: prop-phishing-resistant-mfa
+    name: "Phishing-resistant MFA (passkeys/FIDO2) for all workforce"
+    status: proposed
+    annual_cost: 45000
+    one_time_cost: 120000
+    owner: "IT Director"
+    source: mfa-effectiveness-studies
+    cost_source: security-budget-template
+    replaces: [mfa-workforce]
+    effects:
+      - scenarios: ["#credential"]
+        frequency_multiplier: {min: 0.15, mode: 0.3, max: 0.5, source: mfa-effectiveness-studies, owner: "CISO"}
+    notes: "Replaces app-based MFA; the proposal multiplier is modeled against the pre-control scenario frequency."
+
+  - id: prop-payment-dual-control
+    name: "Dual-control and callback verification for payments above 25k in model currency"
+    status: proposed
+    annual_cost: 15000
+    one_time_cost: 10000
+    owner: "CFO"
+    source: fbi-ic3-2025
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["bec-executive"]
+        magnitude_multiplier: {min: 0.1, mode: 0.25, max: 0.5, source: fbi-ic3-2025, owner: "CFO"}
+        component_tags: [fraud]
+    notes: "A process control. Usually the best return in the portfolio; that is the point of showing it."
+
+  - id: prop-ci-hardening
+    name: "CI hardening: dependency pinning, OIDC trust review, runner isolation"
+    status: proposed
+    annual_cost: 20000
+    one_time_cost: 40000
+    owner: "VP Engineering"
+    source: shai-hulud-2026
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["supply-chain-pipeline"]
+        frequency_multiplier: {min: 0.2, mode: 0.4, max: 0.7, source: shai-hulud-2026, owner: "VP Engineering"}
+
+  - id: prop-siem-replacement
+    name: "SIEM replacement with expanded log coverage"
+    status: proposed
+    annual_cost: 400000
+    one_time_cost: 250000
+    owner: "SOC Manager"
+    source: workshop-2026-09
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["#exfil", "#cloud"]
+        magnitude_multiplier: {min: 0.7, mode: 0.85, max: 0.95, source: workshop-2026-09, owner: "SOC Manager"}
+      - scenarios: ["#exfil"]
+        frequency_multiplier: {min: 0.85, mode: 0.95, max: 1.0, source: workshop-2026-09, owner: "SOC Manager"}
+
+  - id: prop-dlp-expansion
+    name: "DLP expansion to SaaS and endpoints"
+    status: proposed
+    annual_cost: 90000
+    one_time_cost: 60000
+    owner: "CISO"
+    source: workshop-2026-09
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["insider-data-theft", "breach-customer-data"]
+        magnitude_multiplier: {min: 0.5, mode: 0.7, max: 0.9, source: workshop-2026-09, owner: "CISO"}
+        component_tags: [data]
+
+  - id: prop-cloud-key-elimination
+    name: "Eliminate static cloud keys (workload identity, short-lived credentials)"
+    status: proposed
+    annual_cost: 10000
+    one_time_cost: 80000
+    owner: "Head of Platform"
+    source: workshop-2026-09
+    cost_source: security-budget-template
+    effects:
+      - scenarios: ["cloud-account-compromise"]
+        frequency_multiplier: {min: 0.1, mode: 0.25, max: 0.5, source: workshop-2026-09, owner: "Head of Platform"}

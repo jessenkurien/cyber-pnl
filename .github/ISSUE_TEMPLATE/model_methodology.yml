@@ -1,0 +1,39 @@
+name: Model or methodology proposal
+description: Propose a calibration source, KPI curve, scenario pack, or model-method change.
+title: "[Model]: "
+labels: [methodology]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Proposal type
+      options:
+        - Calibration source
+        - KPI curve
+        - Scenario or component
+        - Control effect
+        - Attribution method
+        - Model-risk disclosure
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision this improves
+      description: Explain which CISO, CFO, board, risk, or assurance decision becomes better.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and limitations
+      description: Link primary sources and state applicability limits, uncertainty, and known counterexamples.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Validation approach
+      description: Describe tests, monotonicity expectations, and failure behavior.
+    validations:
+      required: true

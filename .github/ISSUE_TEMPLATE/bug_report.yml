@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a reproducible software or generated-report defect.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include real organization data, model values, logs, credentials, or security vulnerabilities.
+  - type: input
+    id: version
+    attributes:
+      label: Cyber P&L version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Model validation
+        - Simulation
+        - Control valuation
+        - Investment analysis
+        - KPI import
+        - Generated report
+        - Packaging or installation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Use fictional or redacted data only.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Data-safety confirmation
+      options:
+        - label: I removed real organization data, confidential information, and credentials.
+          required: true

@@ -1,0 +1,67 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m ruff format --check .
+      - run: python -m ruff check .
+      - run: python -m pytest --cov=cyberpnl --cov-report=term-missing --cov-fail-under=90
+      - name: Verify editable and bundled sample models match
+        run: python -c "from pathlib import Path; a=Path('model'); b=Path('cyberpnl/default_model'); assert {p.name:p.read_bytes() for p in a.glob('*.yaml')} == {p.name:p.read_bytes() for p in b.glob('*.yaml')}"
+
+  sample-model-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -e ".[dev]"
+      - run: cyberpnl validate
+      - run: cyberpnl statement --model model --out out --fail-on-appetite
+      - name: Assert public output remains an unattested template
+        run: python -c "import json; d=json.load(open('out/statement.json')); assert d['template'] is True and d['assumptions_attested'] is False"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: illustrative-board-statement
+          path: out/
+
+  wheel-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install build
+      - run: python -m build
+      - run: python -m venv /tmp/cyberpnl-smoke
+      - run: /tmp/cyberpnl-smoke/bin/python -m pip install dist/*.whl
+      - working-directory: /tmp
+        run: /tmp/cyberpnl-smoke/bin/cyberpnl validate

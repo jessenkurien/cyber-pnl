@@ -1,0 +1,21 @@
+{
+  "scenario": "fast-72",
+  "attacker_clock_minutes": 72.0,
+  "first_precursor_minute": 0.0,
+  "time_to_detect_minutes": 12.0,
+  "time_to_decide_minutes": 18.5,
+  "time_to_contain_minutes": 19.0,
+  "margin_minutes": 53.0,
+  "contained_before_exfiltration": true,
+  "friction_minute": 13.0,
+  "expected": "contain",
+  "passed": true,
+  "authority_used": "automatic",
+  "actions": [
+    "identity.revoke_sessions\u2192user:j.doe@example.com",
+    "identity.require_mfa_reset\u2192user:j.doe@example.com",
+    "identity.disable_user\u2192user:j.doe@example.com",
+    "endpoint.isolate_host\u2192host:ws-4471",
+    "cloud.deactivate_keys\u2192user:j.doe@example.com"
+  ]
+}

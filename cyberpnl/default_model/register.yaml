@@ -1,0 +1,5 @@
+# Digest attestations bind named assertions to the current model body. They detect edits but do
+# not authenticate identity like a digital signature. This public template is intentionally blank.
+# Generate a line only after real review: `cyberpnl attest --role CFO --name "..."`.
+required_roles: [CFO, CISO]
+attestations: []

@@ -1,0 +1,167 @@
+# Loss scenarios — a business service paired with a threat. Ten, not fifty.
+#
+# Every number is a RANGE with a source and an owner. Shapes:
+#   {min, mode, max}  PERT — use when an expert can say "at least / most likely / at most"
+#   {p05, p95}        lognormal 90% input interval — use for costs with a long right tail
+#   {value}           fixed — known quantities
+#
+# Frequencies are loss events per year BEFORE controls. Controls multiply them (controls.yaml).
+# Sources are ids in sources.yaml. This sample is fictional; replace all [TEMPLATE] source records
+# through organization-specific calibration before operational use.
+
+scenarios:
+
+  # ------------------------------------------------------------------------------------------------
+  - id: ransomware-platform
+    name: "Ransomware on the production platform"
+    service: platform
+    threat: "Ransomware affiliate via stolen credential / exposed service"
+    owner: "IR Lead"
+    tags: [ransomware, credential, exfil]
+    frequency: {min: 0.08, mode: 0.2, max: 0.5, source: iris2025, owner: "Threat Intel Lead"}
+    components:
+      - {name: downtime, kind: downtime, tags: [impact, downtime], hours: {min: 24, mode: 72, max: 240, source: coveware-q2-2026, owner: "IT Director"}}
+      - {name: ransom, kind: ransom, tags: [impact, ransom],
+         demand: {p05: 400000, p95: 6000000, source: unit42-girr-2026, owner: "IR Lead"},
+         p_pay: {min: 0.2, mode: 0.35, max: 0.6, source: unit42-girr-2026, owner: "CISO"}}
+      - {name: incident_response, kind: dollars, tags: [always], amount: {p05: 150000, p95: 900000, source: ir-retainer-rate-card, owner: "IR Lead"}}
+      - {name: rebuild, kind: dollars, tags: [impact], amount: {min: 100000, mode: 350000, max: 1200000, source: workshop-2026-09, owner: "IT Director"}}
+      - {name: data_exfil_costs, kind: per_record, tags: [data],
+         records: {min: 50000, mode: 250000, max: 400000, source: data-inventory, owner: "DPO"},
+         cost_per_record: {min: 2, mode: 5, max: 12, source: ibm-codb-2025, owner: "Legal"}}
+      - {name: sla_credits, kind: pct_revenue, tags: [impact], pct: {min: 0.001, mode: 0.004, max: 0.01, source: contracts, owner: "CFO"}}
+      - {name: churn, kind: pct_revenue, tags: [data], pct: {min: 0.003, mode: 0.01, max: 0.04, source: workshop-2026-09, owner: "CRO"}}
+    unpriced: ["Executive time and morale", "Delayed roadmap", "Regulatory scrutiny beyond fines"]
+
+  # ------------------------------------------------------------------------------------------------
+  - id: breach-customer-data
+    name: "Customer data breach via stolen credential"
+    service: platform
+    threat: "Credential theft → application/database access → exfiltration"
+    owner: "CISO"
+    tags: [credential, exfil, breach]
+    frequency: {min: 0.08, mode: 0.2, max: 0.5, source: iris2025, owner: "Threat Intel Lead"}
+    components:
+      - {name: notification_monitoring, kind: per_record, tags: [data],
+         records: {min: 100000, mode: 400000, max: 400000, source: data-inventory, owner: "DPO"},
+         cost_per_record: {min: 2, mode: 4, max: 10, source: ibm-codb-2025, owner: "Legal"}}
+      - {name: forensics_ir, kind: dollars, tags: [always], amount: {p05: 120000, p95: 700000, source: ir-retainer-rate-card, owner: "IR Lead"}}
+      - {name: regulatory, kind: dollars, tags: [data], amount: {min: 0, mode: 150000, max: 2500000, source: gdpr-enforcement-tracker, owner: "Legal"}}
+      - {name: legal_settlement, kind: dollars, tags: [data], amount: {p05: 50000, p95: 3000000, source: class-action-comparables, owner: "Legal"}}
+      - {name: churn, kind: pct_revenue, tags: [data], pct: {min: 0.002, mode: 0.008, max: 0.03, source: workshop-2026-09, owner: "CRO"}}
+    unpriced: ["Loss of enterprise deals in pipeline", "Board and investor confidence"]
+
+  # ------------------------------------------------------------------------------------------------
+  - id: bec-executive
+    name: "Business email compromise via executive account"
+    service: corp-it
+    threat: "Executive mailbox takeover → wire/invoice fraud, mailbox exfiltration"
+    owner: "CISO"
+    tags: [credential, bec]
+    frequency: {min: 0.2, mode: 0.5, max: 1.2, source: fbi-ic3-2025, owner: "Threat Intel Lead"}
+    components:
+      - {name: fraud_loss, kind: dollars, tags: [fraud], amount: {p05: 25000, p95: 1500000, source: fbi-ic3-2025, owner: "CFO"}}
+      - {name: recovery_probability_offset, kind: offset, tags: [recovery], amount: {min: -400000, mode: -100000, max: 0, source: fbi-ic3-2025, owner: "CFO"}}
+      - {name: investigation, kind: dollars, tags: [always], amount: {min: 15000, mode: 40000, max: 120000, source: ir-retainer-rate-card, owner: "IR Lead"}}
+      - {name: mailbox_data_exposure, kind: dollars, tags: [data], amount: {min: 0, mode: 50000, max: 600000, source: workshop-2026-09, owner: "Legal"}}
+    unpriced: ["Material non-public information exposure (public-company risk)", "Executive reputational harm"]
+    notes: "recovery_probability_offset models funds clawed back by the bank (negative cost)."
+
+  # ------------------------------------------------------------------------------------------------
+  - id: supply-chain-pipeline
+    name: "Software supply-chain compromise of the build pipeline"
+    service: engineering
+    threat: "Poisoned dependency or stolen CI token → malicious release shipped to customers"
+    owner: "VP Engineering"
+    tags: [supply-chain, credential]
+    frequency: {min: 0.02, mode: 0.08, max: 0.25, source: shai-hulud-2026, owner: "Threat Intel Lead"}
+    components:
+      - {name: incident_response, kind: dollars, tags: [always], amount: {p05: 200000, p95: 1200000, source: ir-retainer-rate-card, owner: "IR Lead"}}
+      - {name: customer_remediation, kind: dollars, tags: [impact], amount: {min: 100000, mode: 600000, max: 3000000, source: workshop-2026-09, owner: "VP Engineering"}}
+      - {name: contract_liability, kind: dollars, tags: [impact], amount: {min: 0, mode: 250000, max: 2000000, source: contracts, owner: "Legal"}}
+      - {name: churn, kind: pct_revenue, tags: [impact], pct: {min: 0.005, mode: 0.015, max: 0.05, source: workshop-2026-09, owner: "CRO"}}
+    unpriced: ["Trust with the developer community", "Regulatory attention as a vendor"]
+
+  # ------------------------------------------------------------------------------------------------
+  - id: cloud-account-compromise
+    name: "Cloud account compromise (leaked key)"
+    service: platform
+    threat: "Leaked access key → resource abuse, snapshot deletion, data exposure"
+    owner: "Head of Platform"
+    tags: [credential, cloud]
+    frequency: {min: 0.1, mode: 0.3, max: 0.8, source: workshop-2026-09, owner: "Head of Platform"}
+    components:
+      - {name: cloud_spend_abuse, kind: dollars, tags: [impact], amount: {p05: 5000, p95: 250000, source: cloud-billing-history, owner: "Head of Platform"}}
+      - {name: recovery, kind: dollars, tags: [impact], amount: {min: 10000, mode: 40000, max: 200000, source: workshop-2026-09, owner: "Head of Platform"}}
+      - {name: downtime, kind: downtime, tags: [impact], hours: {min: 0, mode: 4, max: 48, source: workshop-2026-09, owner: "Head of Platform"}}
+      - {name: data_exposure, kind: dollars, tags: [data], amount: {min: 0, mode: 30000, max: 1500000, source: workshop-2026-09, owner: "Legal"}}
+    unpriced: []
+
+  # ------------------------------------------------------------------------------------------------
+  - id: insider-data-theft
+    name: "Insider data theft by departing employee"
+    service: engineering
+    threat: "Departing employee takes source code, customer lists, roadmap"
+    owner: "CISO"
+    tags: [insider, data]
+    frequency: {min: 0.1, mode: 0.3, max: 0.7, source: workshop-2026-09, owner: "HR Director"}
+    components:
+      - {name: competitive_loss, kind: pct_revenue, tags: [data], pct: {min: 0.0, mode: 0.001, max: 0.01, source: workshop-2026-09, owner: "CRO"}}
+      - {name: legal, kind: dollars, tags: [data], amount: {min: 10000, mode: 60000, max: 400000, source: workshop-2026-09, owner: "Legal"}}
+      - {name: forensics, kind: dollars, tags: [always], amount: {min: 10000, mode: 30000, max: 90000, source: ir-retainer-rate-card, owner: "IR Lead"}}
+    unpriced: ["Team morale after a departure investigation"]
+
+  # ------------------------------------------------------------------------------------------------
+  - id: third-party-outage-breach
+    name: "Critical third-party / SaaS provider outage or breach"
+    service: payments
+    threat: "Payment processor, identity provider, or key data processor down or breached"
+    owner: "VP Payments"
+    tags: [third-party]
+    frequency: {min: 0.3, mode: 0.8, max: 2.0, source: vendor-incident-history, owner: "Vendor Risk Lead"}
+    components:
+      - {name: downtime, kind: downtime, tags: [impact], hours: {min: 1, mode: 6, max: 48, source: vendor-incident-history, owner: "VP Payments"}}
+      - {name: notification_if_our_data, kind: dollars, tags: [data], amount: {min: 0, mode: 20000, max: 800000, source: workshop-2026-09, owner: "DPO"}}
+      - {name: contract_recovery_offset, kind: offset, tags: [recovery], amount: {min: -50000, mode: -10000, max: 0, source: contracts, owner: "Legal"}}
+    unpriced: ["Customer perception even when the fault is the vendor's"]
+
+  # ------------------------------------------------------------------------------------------------
+  - id: platform-outage-misconfig
+    name: "Extended platform outage from misconfiguration or drift"
+    service: platform
+    threat: "Bad change / configuration drift; not an attack"
+    owner: "Head of Platform"
+    tags: [availability]
+    frequency: {min: 1, mode: 3, max: 8, source: change-incident-history, owner: "Head of Platform"}
+    components:
+      - {name: downtime, kind: downtime, tags: [impact], hours: {min: 0.5, mode: 2, max: 12, source: change-incident-history, owner: "Head of Platform"}}
+      - {name: sla_credits, kind: pct_revenue, tags: [impact], pct: {min: 0.0, mode: 0.0002, max: 0.001, source: contracts, owner: "CFO"}}
+    unpriced: []
+    notes: "Included deliberately: the highest-frequency loss the board rarely sees next to security scenarios."
+
+  # ------------------------------------------------------------------------------------------------
+  - id: regulatory-audit-failure
+    name: "Regulatory or audit failure without a breach"
+    service: erp
+    threat: "Failed SOC 2 / GDPR enforcement driven by control gaps"
+    owner: "GRC Lead"
+    tags: [compliance]
+    frequency: {min: 0.05, mode: 0.15, max: 0.4, source: workshop-2026-09, owner: "GRC Lead"}
+    components:
+      - {name: lost_deals, kind: pct_revenue, tags: [impact], pct: {min: 0.001, mode: 0.005, max: 0.02, source: workshop-2026-09, owner: "CRO"}}
+      - {name: fines, kind: dollars, tags: [impact], amount: {min: 0, mode: 50000, max: 1000000, source: gdpr-enforcement-tracker, owner: "Legal"}}
+      - {name: remediation, kind: dollars, tags: [always], amount: {min: 50000, mode: 200000, max: 600000, source: workshop-2026-09, owner: "GRC Lead"}}
+    unpriced: []
+
+  # ------------------------------------------------------------------------------------------------
+  - id: ddos-portal
+    name: "DDoS on the customer portal"
+    service: customer-portal
+    threat: "Volumetric / application-layer denial of service"
+    owner: "Head of Platform"
+    tags: [availability, ddos]
+    frequency: {min: 0.5, mode: 2, max: 6, source: ddos-provider-reports, owner: "Head of Platform"}
+    components:
+      - {name: downtime, kind: downtime, tags: [impact], hours: {min: 0.25, mode: 1.5, max: 10, source: ddos-provider-reports, owner: "Head of Platform"}}
+      - {name: mitigation, kind: dollars, tags: [always], amount: {min: 2000, mode: 8000, max: 40000, source: ddos-provider-reports, owner: "Head of Platform"}}
+    unpriced: []

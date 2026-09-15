@@ -1,0 +1,21 @@
+# Synthetic demonstration KPIs. They are not measurements from a real company. Replace them
+# through `cyberpnl kpis import` before operational use.
+kpis:
+  time_to_contain_minutes:
+    value: 32
+    source: 72md-rehearsal
+    owner: "IR Lead (template role)"
+    measured_at: 2026-08-20
+    status: synthetic_template
+  credential_exposure_score:
+    value: 34.0
+    source: wormprint-report
+    owner: "CISO (template role)"
+    measured_at: 2026-08-20
+    status: synthetic_template
+  proven_restore_hours:
+    value: 6
+    source: restore-drill-2026-06
+    owner: "IT Director (template role)"
+    measured_at: 2026-06-30
+    status: synthetic_template
