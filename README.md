@@ -4,6 +4,8 @@
 
 Created and maintained by **[Jessen Kurien](https://github.com/jessenkurien)**.
 
+**Executive overview and advisory options:** [Cyber P&L — open-source cyber risk quantification](https://www.jessenkurien.com/cyber-pnl/)
+
 [![CI](https://github.com/jessenkurien/cyber-pnl/actions/workflows/ci.yml/badge.svg)](https://github.com/jessenkurien/cyber-pnl/actions/workflows/ci.yml)
 ![sample](https://img.shields.io/badge/sample-illustrative%20template-6b7280)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
@@ -183,6 +185,9 @@ apply to the organization using the model.
 product, client engagement, training program, presentation, or research paper, please credit
 **“Cyber P&L by Jessen Kurien”** and link to
 [the original repository](https://github.com/jessenkurien/cyber-pnl).
+
+For the executive overview, decision use cases, and advisory options, visit the
+[Cyber P&L project page](https://www.jessenkurien.com/cyber-pnl/).
 
 For a formal software citation, use GitHub's **Cite this repository** control or the metadata in
 [`CITATION.cff`](CITATION.cff). Redistribution remains governed by the MIT License, which requires
