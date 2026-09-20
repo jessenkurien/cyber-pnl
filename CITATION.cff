@@ -9,6 +9,7 @@ date-released: 2026-09-15
 authors:
   - family-names: Kurien
     given-names: Jessen
+    orcid: https://orcid.org/0009-0002-6531-6383
 repository-code: https://github.com/jessenkurien/cyber-pnl
 url: https://github.com/jessenkurien/cyber-pnl
 license: MIT
